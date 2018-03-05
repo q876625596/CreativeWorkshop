@@ -1,0 +1,18 @@
+ext {
+    android = [
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.2",
+            minSdkVersion    : 21,
+            targetSdkVersion : 27
+    ]
+
+    //Version
+    supportLibrary = "27.0.2"
+
+    //supportLibraries dependencies
+    supportDependencies = [
+            supportAppcompat: "com.android.support:appcompat-v7:${supportLibrary}",
+            supportV4       : "com.android.support:support-v4:${supportLibrary}",
+            suppoutDesign   : "com.android.support:design:${supportLibrary}"
+    ]
+}
