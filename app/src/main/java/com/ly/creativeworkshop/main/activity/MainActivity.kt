@@ -1,4 +1,4 @@
-package com.ly.creativeworkshop.main
+package com.ly.creativeworkshop.main.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
