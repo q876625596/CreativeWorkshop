@@ -55,4 +55,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':baselibrary')
+    implementation 'com.chenenyu.router:router:1.4.0-beta1'
+    kapt 'com.chenenyu.router:compiler:1.4.0-beta1'
 }

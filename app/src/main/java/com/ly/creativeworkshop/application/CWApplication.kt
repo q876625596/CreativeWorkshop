@@ -56,13 +56,15 @@ class CWApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         cwApplication = this
-        if (isAppMainProcess()) Router.initialize(
-            Configuration.Builder()
-                // 调试模式，开启后会打印log
-                .setDebuggable(BuildConfig.DEBUG)
-                // 模块名(即project.name)，每个使用Router的module都要在这里注册
-                .registerModules("app", "loginandregister")
-                .build()
-        )
+        if (isAppMainProcess()) {
+            Router.initialize(
+                    Configuration.Builder()
+                            // 调试模式，开启后会打印log
+                            .setDebuggable(BuildConfig.DEBUG)
+                            // 模块名(即project.name)，每个使用Router的module都要在这里注册
+                            .registerModules("app", "loginandregister")
+                            .build()
+            )
+        }
     }
 }
