@@ -3,33 +3,37 @@ package com.ly.creativeworkshop.main.activity
 import android.arch.lifecycle.ViewModelProviders
 import android.view.View
 import com.bumptech.glide.Glide
-import com.chenenyu.router.Router
 import com.ly.baselibrary.SystemUtils
 import com.ly.creativeworkshop.R
+import com.ly.creativeworkshop.main.anko.MainAnko
 import com.ly.creativeworkshop.mvp.MVPBaseActivity
-import kotlinx.android.synthetic.main.main_activity_main.*
+import org.jetbrains.anko.find
+import org.jetbrains.anko.setContentView
 
 class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter, MainViewModel>(),
-    MainContract.View {
+        MainContract.View {
 
     override fun click(view: View) {
 
     }
 
     override fun initView() {
-        setContentView(R.layout.main_activity_main)
+        setFixScreen()
+        MainAnko().setContentView(this)
+        //setContentView(R.layout.main_activity_main)
+        setTransparentStatusBar(false)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        btn.setOnClickListener({
+        /*btn.setOnClickListener({
             Router.build("login").go(this)
-        })
-        val wh = SystemUtils.getScreenWidthAndHeight(this)
+        })*/
+      /*  val wh = SystemUtils.getScreenWidthAndHeight(this)
         if (wh[1] / wh[0] <= 16 / 9) {
-            Glide.with(this).load(R.drawable.b1920)
-                .into(image)
+            Glide.with(this).load(R.drawable.creative_1920)
+                    .into(find(MainAnko.IMAGE_VIEW))
         } else {
-            Glide.with(this).load(R.drawable.b2160)
-                .into(image)
-        }
+            Glide.with(this).load(R.drawable.creative_2160)
+                    .into(find(MainAnko.IMAGE_VIEW))
+        }*/
     }
 
     override fun setListener() {
