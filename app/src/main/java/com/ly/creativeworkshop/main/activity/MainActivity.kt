@@ -2,12 +2,8 @@ package com.ly.creativeworkshop.main.activity
 
 import android.arch.lifecycle.ViewModelProviders
 import android.view.View
-import com.bumptech.glide.Glide
-import com.ly.baselibrary.SystemUtils
-import com.ly.creativeworkshop.R
 import com.ly.creativeworkshop.main.anko.MainAnko
 import com.ly.creativeworkshop.mvp.MVPBaseActivity
-import org.jetbrains.anko.find
 import org.jetbrains.anko.setContentView
 
 class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter, MainViewModel>(),
