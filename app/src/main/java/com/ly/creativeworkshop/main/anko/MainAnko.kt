@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.chenenyu.router.Router
 import com.ly.baselibrary.SystemUtils
 import com.ly.creativeworkshop.R
 import com.ly.creativeworkshop.main.activity.MainActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.constraint.layout.constraintLayout
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 /**
  * Created by Administrator on 2018/3/5.
@@ -48,6 +50,7 @@ class MainAnko : AnkoComponent<MainActivity> {
                 textColorResource = R.color.white
                 backgroundResource = R.drawable.main_login_btn_press
                 gravity = Gravity.CENTER
+                onClick { Router.build("login").go(ctx) }
             }.lparams(0, wrapContent) {
                 marginStart = dip(5)
                 marginEnd = dip(10)
