@@ -1,14 +1,9 @@
-package com.ly.creativeworkshop.main.activity
+package com.ly.loginandregister.login
 
 import com.ly.loginandregister.mvp.BasePresenter
 import com.ly.loginandregister.mvp.BaseView
 
-/**
- * MVPPlugin
- * 邮箱 784787081@qq.com
- */
-
-class MainContract {
+class LoginContract {
     interface View : BaseView
 
     interface Presenter : BasePresenter<View>

@@ -1,7 +1,4 @@
-package com.ly.creativeworkshop.mvp
-
-import com.ly.loginandregister.mvp.BasePresenter
-import com.ly.loginandregister.mvp.BaseView
+package com.ly.loginandregister.mvp
 
 
 open class BasePresenterImpl<in V : BaseView> : BasePresenter<V> {

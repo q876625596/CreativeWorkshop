@@ -3,10 +3,11 @@ package com.ly.creativeworkshop.mvp
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 
 import com.ly.baselibrary.BaseActivity
+import com.ly.loginandregister.mvp.BasePresenterImpl
+import com.ly.loginandregister.mvp.BaseView
 
 import java.lang.reflect.ParameterizedType
 

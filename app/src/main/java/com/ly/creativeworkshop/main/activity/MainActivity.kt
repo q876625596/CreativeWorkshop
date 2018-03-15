@@ -3,7 +3,7 @@ package com.ly.creativeworkshop.main.activity
 import android.arch.lifecycle.ViewModelProviders
 import android.view.View
 import com.ly.creativeworkshop.main.anko.MainAnko
-import com.ly.creativeworkshop.mvp.MVPBaseActivity
+import com.ly.loginandregister.mvp.MVPBaseActivity
 import org.jetbrains.anko.setContentView
 
 class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter, MainViewModel>(),

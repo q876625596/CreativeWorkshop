@@ -1,6 +1,4 @@
-package com.ly.creativeworkshop.mvp
-
-import com.ly.loginandregister.mvp.BaseView
+package com.ly.loginandregister.mvp
 
 /**
  * MVPPlugin

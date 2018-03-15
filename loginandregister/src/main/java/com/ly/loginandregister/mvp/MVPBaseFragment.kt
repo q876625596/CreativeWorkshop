@@ -1,4 +1,4 @@
-package com.ly.creativeworkshop.mvp
+package com.ly.loginandregister.mvp
 
 import android.arch.lifecycle.ViewModel
 import android.content.Context
@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
 import com.ly.baselibrary.BaseFragment
-import com.ly.loginandregister.mvp.BasePresenterImpl
-import com.ly.loginandregister.mvp.BaseView
 
 import java.lang.reflect.ParameterizedType
 
