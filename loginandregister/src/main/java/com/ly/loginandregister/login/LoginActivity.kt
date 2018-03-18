@@ -10,12 +10,10 @@ import android.util.Log
 import android.view.View
 import android.view.animation.*
 import com.chenenyu.router.annotation.Route
-import com.ly.baselibrary.SystemUtils
 import com.ly.bezier.AnimationUtils
 import com.ly.loginandregister.R
 import com.ly.loginandregister.mvp.MVPBaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.dip
 
 
 @Route("login")
@@ -33,8 +31,8 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
 
     override fun click(view: View?) {
         when (view!!.id) {
-            loginCard.id -> hideAnim(true)
-            registerCard.id -> hideAnim(false)
+            toRegisterCard.id -> hideAnim(true)
+            toLoginCard.id -> hideAnim(false)
         }
     }
 
@@ -47,8 +45,8 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
     }
 
     override fun setListener() {
-        loginCard.setOnClickListener(this)
-        registerCard.setOnClickListener(this)
+        toRegisterCard.setOnClickListener(this)
+        toLoginCard.setOnClickListener(this)
     }
 
     override fun initData() {
@@ -127,19 +125,19 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
         hideScaleAnim(if (isHideSun) cloud_2 else star_2, null)
         hideScaleAnim(if (isHideSun) cloud_3 else star_3, null)
         if (isHideSun) {
-            loginCard.isClickable = false
+            toRegisterCard.isClickable = false
         } else {
-            registerCard.isClickable = false
+            toLoginCard.isClickable = false
         }
-        hideScaleAnim(if (isHideSun) loginCard else registerCard, null)
+        hideScaleAnim(if (isHideSun) toRegisterCard else toLoginCard, null)
     }
 
     private fun showAnim(isShowSun: Boolean) {
-        showScaleAnim(if (isShowSun) loginCard else registerCard, null, null, null)
+        showScaleAnim(if (isShowSun) toRegisterCard else toLoginCard, null, null, null)
         if (isShowSun) {
-            loginCard.isClickable = true
+            toRegisterCard.isClickable = true
         } else {
-            registerCard.isClickable = true
+            toLoginCard.isClickable = true
         }
         showScaleAnim(
             if (isShowSun) cloud_1 else star_1, null,

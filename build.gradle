@@ -20,6 +20,7 @@ buildscript {
     ext.constraint_version='1.0.2'
     ext.flexbox_version='0.3.2'
     ext.router_version='1.4.0-beta1'
+    ext.materialEditText_version='2.1.4'
     repositories {
         google()
         jcenter()

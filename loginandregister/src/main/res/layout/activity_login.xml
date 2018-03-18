@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nightBlack">
@@ -146,7 +147,7 @@
         android:layout_height="0dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:background="#ffffff"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +159,7 @@
         android:id="@+id/rotateView"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:background="#ffffff"
+        android:background="@color/white"
         android:rotation="15"
         android:scaleX="2"
         app:layout_constraintBottom_toTopOf="@id/bottomView"
@@ -212,7 +213,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/loginCard"
+        android:id="@+id/toRegisterCard"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="20dp"
@@ -228,12 +229,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="登录"
-            android:textColor="@color/black" />
+            android:text="前往\n注册"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/registerCard"
+        android:id="@+id/toLoginCard"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
@@ -249,21 +251,58 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="注册"
-            android:textColor="@color/white" />
+            android:text="返回\n登录"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.AppCompatButton
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:id="@+id/editPhone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="登录"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:theme="@style/LoginButton"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/bottomView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:hint="请输入手机号"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPassword"
         app:layout_constraintEnd_toEndOf="@id/bottomView"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/bottomView"
-        app:layout_constraintTop_toTopOf="@id/bottomView"
+        app:layout_constraintTop_toBottomOf="@+id/rotateView"
+        app:layout_constraintVertical_bias="0.091"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:id="@+id/editPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:hint="请输入密码"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/appCompatButton"
+        app:layout_constraintEnd_toEndOf="@id/bottomView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/bottomView"
+        app:layout_constraintTop_toBottomOf="@+id/editPhone" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="登录"
+        android:textColor="@color/black"
+        android:theme="@style/LoginButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/bottomView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/bottomView"
+        app:layout_constraintTop_toBottomOf="@+id/editPassword"
         app:layout_constraintVertical_bias="0.8" />
 </android.support.constraint.ConstraintLayout>
