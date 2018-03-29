@@ -3,17 +3,13 @@ package com.ly.loginandregister.login
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
-import android.animation.ValueAnimator
 import android.arch.lifecycle.ViewModelProviders
-import android.util.Log
 import android.view.View
-import android.view.animation.*
 import com.chenenyu.router.annotation.Route
-import com.ly.bezier.AnimationUtils
 import com.ly.loginandregister.R
-import com.ly.loginandregister.mvp.MVPBaseActivity
+import com.ly.baselibrary.mvp.MVPBaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.register_layout.*
 
 
 @Route("login")
@@ -30,9 +26,52 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
     private var star3Animator: ObjectAnimator? = null
 
     override fun click(view: View?) {
-        when (view!!.id) {
-            toRegisterCard.id -> hideAnim(true)
-            toLoginCard.id -> hideAnim(false)
+        when (view) {
+            toRegister -> {
+                hideAnim(true)
+                if (registerLayout == null) {
+                    registerViewStub.inflate()
+                }
+                viewModel.hideScaleAnim(loginLayout, object : Animator.AnimatorListener {
+                    override fun onAnimationRepeat(animation: Animator?) {
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        loginLayout.visibility = View.INVISIBLE
+                        registerLayout.visibility = View.VISIBLE
+                        viewModel.showScaleAnim(registerLayout, null, null, null)
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+                    }
+
+                    override fun onAnimationStart(animation: Animator?) {
+                    }
+
+                })
+
+            }
+            toLogin -> {
+                hideAnim(false)
+                viewModel.hideScaleAnim(registerLayout, object : Animator.AnimatorListener {
+                    override fun onAnimationRepeat(animation: Animator?) {
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        registerLayout.visibility = View.INVISIBLE
+                        loginLayout.visibility = View.VISIBLE
+                        viewModel.showScaleAnim(loginLayout, null, null, null)
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+                    }
+
+                    override fun onAnimationStart(animation: Animator?) {
+                    }
+
+                })
+            }
+
         }
     }
 
@@ -45,21 +84,77 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
     }
 
     override fun setListener() {
-        toRegisterCard.setOnClickListener(this)
-        toLoginCard.setOnClickListener(this)
+        toRegister.setOnClickListener(this)
+        registerViewStub.setOnInflateListener { _, _ ->
+            toLogin.setOnClickListener(this@LoginActivity)
+        }
     }
 
     override fun initData() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (loginCard.visibility == View.VISIBLE) {
+            if (sunAnimator!!.isPaused) {
+                sunAnimator?.resume()
+                cloud1Animator?.resume()
+                cloud2Animator?.resume()
+                cloud3Animator?.resume()
+            }
+        }
+        if (registerCard.visibility == View.VISIBLE) {
+            if (moonAnimator!!.isPaused) {
+                moonAnimator?.resume()
+                star1Animator?.resume()
+                star2Animator?.resume()
+                star3Animator?.resume()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (sunAnimator == null) {
+            return
+        }
+        sunAnimator?.pause()
+        cloud1Animator?.pause()
+        cloud2Animator?.pause()
+        cloud3Animator?.pause()
+        moonAnimator?.pause()
+        star1Animator?.pause()
+        star2Animator?.pause()
+        star3Animator?.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (sunAnimator == null) {
+            return
+        }
+        sunAnimator?.end()
+        cloud1Animator?.end()
+        cloud2Animator?.end()
+        cloud3Animator?.end()
+        moonAnimator?.end()
+        star1Animator?.end()
+        star2Animator?.end()
+        star3Animator?.end()
+    }
+
+    //第一次显示动画
     private fun firstShow() {
-        bottomViewTransAnim(bottomView, object : Animator.AnimatorListener {
+        viewModel.bottomViewTransAnim(bottomView, object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
                 showAnim(true)
+                loginLayout.visibility = View.VISIBLE
+                viewModel.showScaleAnim(loginLayout, null, null, null)
+
             }
 
             override fun onAnimationCancel(animation: Animator?) {
@@ -69,15 +164,19 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
             override fun onAnimationStart(animation: Animator?) {
             }
         })
-        bottomViewTransAnim(rotateView, null)
+        viewModel.bottomViewTransAnim(rotateView, null)
     }
 
+    //隐藏动画
     private fun hideAnim(isHideSun: Boolean) {
         if (isHideSun) {
-            rotationAnim(rotateView, -15f)
-            alphaAnim(foregroundView, 0f)
-            alphaAnim(leftForeView, 0f)
-            alphaAnim(rightForeView, 0f)
+            //旋转上方白块
+            viewModel.rotationAnim(rotateView, -15f)
+            //设置前景view为透明
+            viewModel.alphaAnim(foregroundView, 0f)
+            viewModel.alphaAnim(leftForeView, 0f)
+            viewModel.alphaAnim(rightForeView, 0f)
+            //暂停太阳和云朵的动画
             if (sunAnimator != null) {
                 sunAnimator!!.pause()
                 cloud1Animator!!.pause()
@@ -85,10 +184,11 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
                 cloud3Animator!!.pause()
             }
         } else {
-            rotationAnim(rotateView, 15f)
-            alphaAnim(foregroundView, 1f)
-            alphaAnim(leftForeView, 1f)
-            alphaAnim(rightForeView, 1f)
+            viewModel.rotationAnim(rotateView, 15f)
+            viewModel.alphaAnim(foregroundView, 1f)
+            viewModel.alphaAnim(leftForeView, 1f)
+            viewModel.alphaAnim(rightForeView, 1f)
+            //暂停月亮和星星的动画
             if (moonAnimator != null) {
                 moonAnimator!!.pause()
                 star1Animator!!.pause()
@@ -96,22 +196,27 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
                 star3Animator!!.pause()
             }
         }
-        hideScaleAnim(if (isHideSun) sun else moon, object : Animator.AnimatorListener {
+        //隐藏太阳/月亮动画监听
+        viewModel.hideScaleAnim(if (isHideSun) sun else moon, object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
+                //当隐藏动画完成
                 if (isHideSun) {
+                    //隐藏太阳和云朵
                     sun.visibility = View.GONE
                     cloud_1.visibility = View.GONE
                     cloud_2.visibility = View.GONE
                     cloud_3.visibility = View.GONE
                 } else {
+                    //隐藏月亮和星星
                     moon.visibility = View.GONE
                     star_1.visibility = View.GONE
                     star_2.visibility = View.GONE
                     star_3.visibility = View.GONE
                 }
+                //调用显示动画
                 showAnim(!isHideSun)
             }
 
@@ -121,28 +226,26 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
             override fun onAnimationStart(animation: Animator?) {
             }
         })
-        hideScaleAnim(if (isHideSun) cloud_1 else star_1, null)
-        hideScaleAnim(if (isHideSun) cloud_2 else star_2, null)
-        hideScaleAnim(if (isHideSun) cloud_3 else star_3, null)
-        if (isHideSun) {
-            toRegisterCard.isClickable = false
-        } else {
-            toLoginCard.isClickable = false
-        }
-        hideScaleAnim(if (isHideSun) toRegisterCard else toLoginCard, null)
+        //隐藏云朵/星星动画
+        viewModel.hideScaleAnim(if (isHideSun) cloud_1 else star_1, null)
+        viewModel.hideScaleAnim(if (isHideSun) cloud_2 else star_2, null)
+        viewModel.hideScaleAnim(if (isHideSun) cloud_3 else star_3, null)
+        //隐藏卡片动画
+        viewModel.hideScaleAnim(if (isHideSun) loginCard else registerCard, null)
     }
 
+    //显示动画
     private fun showAnim(isShowSun: Boolean) {
-        showScaleAnim(if (isShowSun) toRegisterCard else toLoginCard, null, null, null)
-        if (isShowSun) {
-            toRegisterCard.isClickable = true
-        } else {
-            toLoginCard.isClickable = true
-        }
-        showScaleAnim(
+        //显示卡片动画
+        viewModel.showScaleAnim(if (isShowSun) loginCard else registerCard, null, null, null)
+        //显示云朵/星星动画
+        viewModel.showScaleAnim(
             if (isShowSun) cloud_1 else star_1, null,
             when {
+            //如果是显示太阳，那么为null
                 isShowSun -> null
+            // 因为星星为scale动画
+            // 所以如果星星动画不为空，那么获取星星动画当前的scale值，从当前scale开始动画
                 star1Animator != null -> star1Animator!!.getAnimatedValue(
                     "scaleX"
                 ) as Float
@@ -156,7 +259,7 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
                 else -> null
             }
         )
-        showScaleAnim(
+        viewModel.showScaleAnim(
             if (isShowSun) cloud_2 else star_2, null,
             when {
                 isShowSun -> null
@@ -173,7 +276,7 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
                 else -> null
             }
         )
-        showScaleAnim(
+        viewModel.showScaleAnim(
             if (isShowSun) cloud_3 else star_3, null,
             when {
                 isShowSun -> null
@@ -190,19 +293,22 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
                 else -> null
             }
         )
-        showScaleAnim(
+        //显示太阳/月亮动画
+        viewModel.showScaleAnim(
             if (isShowSun) sun else moon,
             object : Animator.AnimatorListener {
                 override fun onAnimationRepeat(animation: Animator?) {
                 }
 
                 override fun onAnimationEnd(animation: Animator?) {
+                    //动画完成后
                     if (isShowSun) {
+                        //开始太阳和云朵的动画
                         if (sunAnimator == null) {
-                            sunAnimator = sunAndMoonRunAnim(sun, 360f)
-                            cloud1Animator = cloudTransAnim(cloud_1)
-                            cloud2Animator = cloudTransAnim(cloud_2)
-                            cloud3Animator = cloudTransAnim(cloud_3)
+                            sunAnimator = viewModel.sunAndMoonRunAnim(sun, 360f)
+                            cloud1Animator = viewModel.cloudTransAnim(cloud_1)
+                            cloud2Animator = viewModel.cloudTransAnim(cloud_2)
+                            cloud3Animator = viewModel.cloudTransAnim(cloud_3)
                         } else {
                             sunAnimator!!.resume()
                             cloud1Animator!!.resume()
@@ -210,11 +316,12 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
                             cloud3Animator!!.resume()
                         }
                     } else {
+                        //开始月亮和星星的动画
                         if (moonAnimator == null) {
-                            moonAnimator = sunAndMoonRunAnim(moon, -30f)
-                            star1Animator = starScaleAnim(star_1)
-                            star2Animator = starScaleAnim(star_2)
-                            star3Animator = starScaleAnim(star_3)
+                            moonAnimator = viewModel.sunAndMoonRunAnim(moon, -30f)
+                            star1Animator = viewModel.starScaleAnim(star_1)
+                            star2Animator = viewModel.starScaleAnim(star_2)
+                            star3Animator = viewModel.starScaleAnim(star_3)
                         } else {
                             moonAnimator!!.resume()
                             star1Animator!!.resume()
@@ -233,198 +340,4 @@ class LoginActivity : MVPBaseActivity<LoginContract.View, LoginPresenter, LoginV
         )
     }
 
-
-    //放大显示动画，带回弹
-    private fun showScaleAnim(
-        view: View,
-        listener: Animator.AnimatorListener?,
-        oldX: Float?,
-        oldY: Float?
-    ) {
-        view.visibility = View.VISIBLE
-        val scaleBean = AnimationUtils.ScaleBean(
-            0f,
-            oldX ?: 1f,
-            0f,
-            oldY ?: 1f,
-            0.5f,
-            0.5f
-        )
-        val scaleX = PropertyValuesHolder.ofFloat(
-            "scaleX",
-            *floatArrayOf(scaleBean.startX, scaleBean.endX)
-        )
-        val scaleY = PropertyValuesHolder.ofFloat(
-            "scaleY",
-            *floatArrayOf(scaleBean.startY, scaleBean.endY)
-        )
-        view.pivotX = scaleBean.pivotX * view.width
-        view.pivotY = scaleBean.pivotY * view.height
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, scaleX, scaleY)
-        animator.duration = 500L
-        animator.interpolator = OvershootInterpolator()
-        if (listener != null) {
-            animator.addListener(listener)
-        }
-        animator.start()
-    }
-
-    //缩小隐藏动画，带前摇
-    private fun hideScaleAnim(view: View, listener: Animator.AnimatorListener?) {
-        val scaleBean = AnimationUtils.ScaleBean(view.scaleX, 0f, view.scaleY, 0f, 0.5f, 0.5f)
-        val scaleX = PropertyValuesHolder.ofFloat(
-            "scaleX",
-            scaleBean.startX, scaleBean.endX
-        )
-        val scaleY = PropertyValuesHolder.ofFloat(
-            "scaleY",
-            scaleBean.startY, scaleBean.endY
-        )
-        view.pivotX = scaleBean.pivotX * view.width
-        view.pivotY = scaleBean.pivotY * view.height
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, scaleX, scaleY)
-        animator.duration = 500L
-        animator.interpolator = AnticipateInterpolator()
-        if (listener != null) {
-            animator.addListener(listener)
-        }
-        animator.start()
-    }
-
-    //渐变色动画
-    private fun alphaAnim(view: View, alpha: Float) {
-        val alphaPro = PropertyValuesHolder.ofFloat("alpha", view.alpha, alpha)
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, alphaPro)
-        animator.duration = 1000L
-        animator.start()
-    }
-
-    //下方白块旋转动画
-    private fun rotationAnim(view: View, end: Float) {
-        val rotatePro = PropertyValuesHolder.ofFloat(
-            "rotation",
-            view.rotation, end
-        )
-        Log.e("sasa", view.width.toString())
-        view.pivotX = 0.5f * view.width
-        view.pivotY = 0f
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, rotatePro)
-        animator.duration = 1000L
-        animator.start()
-    }
-
-    private fun bottomViewTransAnim(view: View, listener: Animator.AnimatorListener?) {
-        val translationY = PropertyValuesHolder
-            .ofFloat(
-                "translationY",
-                1080f,
-                0f
-            )
-        Log.e("asd", view.height.toString())
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, translationY)
-        animator.duration = 1000L
-        animator.interpolator = OvershootInterpolator()
-        if (listener != null) {
-            animator.addListener(listener)
-        }
-        animator.start()
-    }
-
-    //云朵移动动画
-    private fun cloudTransAnim(view: View): ObjectAnimator {
-        val translationX = PropertyValuesHolder.ofFloat(
-            "translationX",
-            view.translationY, -view.width * 0.5f
-        )
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, translationX)
-        animator.duration = 2000L
-        animator.repeatCount = 10
-        animator.repeatMode = ValueAnimator.REVERSE
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
-                animator.repeatCount++
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-                view.translationX = 0f
-            }
-
-            override fun onAnimationStart(animation: Animator?) {
-            }
-        })
-        animator.start()
-        return animator
-    }
-
-    //星星重复缩放动画
-    private fun starScaleAnim(view: View): ObjectAnimator {
-        val scaleBean = AnimationUtils.ScaleBean(1f, 1.3f, 1f, 1.3f, 0.5f, 0.5f)
-        val scaleX = PropertyValuesHolder.ofFloat(
-            "scaleX",
-            scaleBean.startX, scaleBean.endX
-        )
-        val scaleY = PropertyValuesHolder.ofFloat(
-            "scaleY",
-            scaleBean.startY, scaleBean.endY
-        )
-        view.pivotX = scaleBean.pivotX * view.width
-        view.pivotY = scaleBean.pivotY * view.width
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, scaleX, scaleY)
-        animator.duration = 1000L
-        animator.repeatCount = 10
-        animator.repeatMode = ValueAnimator.REVERSE
-        animator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
-                animator.repeatCount++
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-                view.scaleX = 1f
-                view.scaleY = 1f
-            }
-
-            override fun onAnimationStart(animation: Animator?) {
-            }
-        })
-        animator.start()
-        return animator
-    }
-
-    //太阳和月亮的旋转动画
-    private fun sunAndMoonRunAnim(view: View, rotate: Float): ObjectAnimator {
-        val rotatePro = PropertyValuesHolder.ofFloat(
-            "rotation",
-            0f, rotate
-        )
-        view.pivotX = 0.5f * view.width
-        view.pivotY = 0.5f * view.height
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view, rotatePro)
-        animator.duration = 6000L
-        animator.repeatCount = 10
-        animator.repeatMode = ValueAnimator.REVERSE
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
-                animator.repeatCount++
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-            }
-
-            override fun onAnimationStart(animation: Animator?) {
-            }
-        })
-        animator.start()
-        return animator
-    }
 }

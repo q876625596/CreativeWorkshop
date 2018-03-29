@@ -31,7 +31,7 @@
             android:id="@+id/cloud_1"
             android:layout_width="33dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_cloud_72"
+            android:src="@drawable/cloud"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +46,7 @@
             android:id="@+id/cloud_2"
             android:layout_width="44dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_cloud_72"
+            android:src="@drawable/cloud"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +60,7 @@
             android:id="@+id/cloud_3"
             android:layout_width="55dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_cloud_72"
+            android:src="@drawable/cloud"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
             android:id="@+id/sun"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/ic_sun"
+            android:src="@drawable/sun"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
             android:id="@+id/moon"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_moon"
+            android:src="@drawable/moon"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,7 @@
             android:id="@+id/star_1"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:src="@drawable/ic_star"
+            android:src="@drawable/star"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +114,7 @@
             android:id="@+id/star_2"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:src="@drawable/ic_star"
+            android:src="@drawable/star"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -128,7 +128,7 @@
             android:id="@+id/star_3"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:src="@drawable/ic_star"
+            android:src="@drawable/star"
             android:translationZ="5dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -213,7 +213,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/toRegisterCard"
+        android:id="@+id/loginCard"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="20dp"
@@ -229,13 +229,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="前往\n注册"
+            android:text="登录"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/toLoginCard"
+        android:id="@+id/registerCard"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
@@ -251,58 +251,87 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="返回\n登录"
+            android:text="注册"
             android:textColor="@color/white"
             android:textSize="12sp" />
     </android.support.v7.widget.CardView>
 
-
-    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
-        android:id="@+id/editPhone"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/loginLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:hint="请输入手机号"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPassword"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/bottomView"
         app:layout_constraintEnd_toEndOf="@id/bottomView"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/bottomView"
-        app:layout_constraintTop_toBottomOf="@+id/rotateView"
-        app:layout_constraintVertical_bias="0.091"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="@id/bottomView">
 
-    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
-        android:id="@+id/editPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:hint="请输入密码"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/appCompatButton"
-        app:layout_constraintEnd_toEndOf="@id/bottomView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@id/bottomView"
-        app:layout_constraintTop_toBottomOf="@+id/editPhone" />
+        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+            android:id="@+id/editPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:digits="0123456789"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/editPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/appCompatButton"
+        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+            android:id="@+id/editPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/loginButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editPhone" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/loginButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="登录"
+            android:textColor="@color/black"
+            android:theme="@style/LoginButton"
+            app:layout_constraintBottom_toTopOf="@+id/toRegister"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editPassword"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <TextView
+            android:id="@+id/toRegister"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有账号？立即注册"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+    </android.support.constraint.ConstraintLayout>
+
+    <ViewStub
+        android:id="@+id/registerViewStub"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:text="登录"
-        android:textColor="@color/black"
-        android:theme="@style/LoginButton"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout="@layout/register_layout"
+        app:layout_constraintBottom_toBottomOf="@id/bottomView"
         app:layout_constraintEnd_toEndOf="@id/bottomView"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/bottomView"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintTop_toTopOf="@id/bottomView" />
 </android.support.constraint.ConstraintLayout>

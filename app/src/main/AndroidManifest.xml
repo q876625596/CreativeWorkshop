@@ -18,8 +18,9 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
+
         <activity
-            android:name=".main.activity.MainActivity"
+            android:name=".launch.LauncherActivity"
             android:theme="@style/MainSplashAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".main.MainActivity" />
     </application>
 
 </manifest>

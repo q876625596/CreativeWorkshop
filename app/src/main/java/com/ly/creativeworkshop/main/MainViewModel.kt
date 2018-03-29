@@ -1,4 +1,4 @@
-package com.ly.creativeworkshop.main.activity
+package com.ly.creativeworkshop.main
 
 import android.arch.lifecycle.ViewModel
 

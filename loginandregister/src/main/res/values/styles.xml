@@ -11,6 +11,10 @@
         <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
         <item name="colorButtonNormal">@color/white</item>
     </style>
+    <style name="GetCodeButton" parent="Theme.AppCompat.Light">
+        <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
+        <item name="colorButtonNormal">@color/morningBlue</item>
+    </style>
 
     <style name="loginEdit" parent="TextAppearance.AppCompat">
         <!-- 默认状态提示颜色和字体-->

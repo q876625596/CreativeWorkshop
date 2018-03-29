@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/registerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="invisible">
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:id="@+id/editPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:digits="0123456789"
+        android:hint="请输入手机号"
+        android:inputType="phone"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:id="@+id/editCode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:digits="0123456789"
+        android:hint="请输入验证码"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPassword"
+        app:layout_constraintEnd_toStartOf="@+id/getCode"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPhone" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/getCode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="获取验证码"
+        android:textColor="@color/white"
+        android:theme="@style/GetCodeButton"
+        app:layout_constraintBottom_toBottomOf="@id/editCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/editCode"
+        app:layout_constraintTop_toTopOf="@id/editCode" />
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:id="@+id/editPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editCode" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:text="登录"
+        android:textColor="@color/black"
+        android:theme="@style/LoginButton"
+        app:layout_constraintBottom_toTopOf="@id/toLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPassword"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/toLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="已有账号？前往登录"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+</android.support.constraint.ConstraintLayout>
